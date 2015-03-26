@@ -18,7 +18,7 @@ public class Banco {
 		//------------------------------------------
 		//------------------------------------------
 		//QUITAR LA FUNCIÓN ESTA Y SU IMPLEMENTACIÓN CUANDO ESTE LISTO
-		inicializarDatosPrueba();
+		//inicializarDatosPrueba();
 		//------------------------------------------
 		//------------------------------------------
 		menu_login();
@@ -210,6 +210,7 @@ public class Banco {
 				case 'a':
 				case 'A':{
 					//DAR DE ALTA UN NUEVO CLIENTE
+					altaCliente();
 					break;
 				}
 				case '3':
@@ -239,6 +240,41 @@ public class Banco {
 				}
 			}
 		}while (opc_menu_personal!='0');	//PIRULA TEMPORAL PARA PROBAR FUNCIONAMIENTO PERSONAL/CLIENTE
+	}
+	
+	public static void altaCliente(){
+		String nombre;
+		String apellidos;
+		int edad;
+		var_scanner.nextLine();
+		System.out.print("Introduce Nombre Cliente: ");
+		nombre=var_scanner.nextLine();
+		System.out.print("Introduce Apellidos Cliente: ");
+		apellidos=var_scanner.nextLine();
+		System.out.print("Introduce edad del cliente: ");
+		edad=var_scanner.nextInt();
+		var_scanner.nextLine();
+		if ((clientes.introducir(new Clientes(nombre,apellidos,edad)))){
+			System.out.println("Cliente: "+nombre+" "+apellidos+", añadido con exito");
+		}else{
+			System.out.println("No se ha podido añadir al cliente");
+		}
+
+	}
+	
+	public void bajaCliente(){
+		String clienteSeleccionado;
+		//listadoClientes();
+		//Seleccionar CLIENTE;
+		clienteSeleccionado=var_scanner.nextLine();
+		clientes.iniciarRecorrido();
+		while(clientes.haySiguiente()){
+			Clientes cliente=(Clientes)clientes.siguiente();
+			if (cliente.getCliente().equals(clienteSeleccionado)){
+				clientes.eliminar();
+				System.out.println("Se ha eliminado al cliente "+clienteSeleccionado);
+			}
+		}
 	}
 	
 	public static void menu_personal_cliente(String cliente_actual){

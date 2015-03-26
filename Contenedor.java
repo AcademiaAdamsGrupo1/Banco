@@ -1,6 +1,6 @@
 class Contenedor {
   	Object elementos[];
-  	int numElementos=3;
+  	int numElementos=0;
   	int recorrido;
 
   	public Contenedor(int capacidad) {
@@ -47,6 +47,16 @@ class Contenedor {
     	}
   	}
 
+  	public Object elementoLibreSiguiente(){
+  		boolean hueco_libre;
+  		iniciarRecorrido();
+  		hueco_libre=haySiguiente();
+  		if (hueco_libre){
+  			return (elementos[recorrido]);
+  		}else{
+  			return(null);
+  		}
+  	}
   	public void eliminar() {
   		elementos[recorrido-1]=null;
   		numElementos--;
