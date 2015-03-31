@@ -6,19 +6,17 @@ public class Banco {
 	static int num_max_clientes;
 	static int num_max_cuentas;
 	static int num_lineas_pantalla;
-	static String numCuentaAcumulativo; //Pendiente de implementar el tokenizer para cargarnos esto
     
 	public static void main(String[] args) {
         num_max_clientes=5;
         num_max_cuentas=5;
         num_lineas_pantalla=20;
-        numCuentaAcumulativo="ES34.";
 		clientes= new Contenedor(num_max_clientes);
 		var_scanner=new Scanner(System.in);
 		//------------------------------------------
 		//------------------------------------------
 		//QUITAR LA FUNCIÓN ESTA Y SU IMPLEMENTACIÓN CUANDO ESTE LISTO
-		//inicializarDatosPrueba();
+		inicializarDatosPrueba();
 		//------------------------------------------
 		//------------------------------------------
 		menu_login();
@@ -26,19 +24,14 @@ public class Banco {
 	}
 	
 	public static void inicializarDatosPrueba(){
-		String cuentaNueva;
-		cuentaNueva=numCuentaAcumulativo;
 		for (int cliente_actual=0;cliente_actual<num_max_clientes;cliente_actual++){
-			cuentaNueva=cuentaNueva+String.valueOf(cliente_actual);
-			clientes.elementos[cliente_actual]=new Clientes("Pedro"+cliente_actual,"Picapiedra",cliente_actual*10,cliente_actual,num_max_cuentas);
-			for (int cuenta_actual=0;cuenta_actual<num_max_cuentas;cuenta_actual++){
-				cuentaNueva=cuentaNueva+String.valueOf(cuenta_actual);
-				((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(cuenta_actual, cuentaNueva);
-			}
-			cuentaNueva=numCuentaAcumulativo;
+			clientes.elementos[cliente_actual]=new Clientes("Pedro"+cliente_actual,"Picapiedra",cliente_actual+1,cliente_actual,num_max_cuentas);
+			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(0);
+			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(1);
+			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(2);
 		}
-		numCuentaAcumulativo=cuentaNueva;
 	}
+
 	
 	public static void menu_login(){
 		char opc_menu_login;
@@ -65,7 +58,7 @@ public class Banco {
 					for (int i=0;i<num_max_clientes;i++){
 						if ((id_cliente.equals(((Clientes)clientes.elementos[i]).getCliente()))&&(pass_cliente.equals(((Clientes)clientes.elementos[i]).getContrasena()))){
 							System.out.println("Sí"+id_cliente);
-							menu_cliente(id_cliente);
+							menu_cliente(clientes.elementos[i]);
 							i=num_max_clientes;
 						}else{
 							System.out.println("NO ->"+i);
@@ -102,7 +95,7 @@ public class Banco {
 		}while(opc_menu_login!='0');
 	}
 	
-	public static void menu_cliente(String id_cliente){
+	public static void menu_cliente(Object cliente_actual){
 		char opc_menu_cliente;
 		do{
 			cabecera(false);
@@ -117,17 +110,22 @@ public class Banco {
 				case 'l':
 				case 'L':{
 					//LISTADO DE CUENTAS VERSION CLIENTE
+					((Clientes)cliente_actual).listarCuentas(false);
 					break;
 				}
 				case '2':
 				case 'o':
 				case 'O':{
+					int cuenta_seleccionada;
+					//String cuenta_seleccionada;
 					//OPERAR CON UNA CUENTA
 					//SELECCIONA SU CUENTA, LISTADO, SELECCIONA NUM_CUENTA
-					//COMPRUEBA QUE ES SUYA DE NUEVO Y LANZA MENU_CLIENTE_CUENTAS
-					String cuenta_seleccionada;
-					cuenta_seleccionada="a"; //CAMBIAR CUANDO ESTÉ IMPLEMENTADO EL PROCESO DE BÚSQUEDAD DE CUENTA
-					menu_cliente_cuentas(id_cliente,cuenta_seleccionada);
+					((Clientes)cliente_actual).listarCuentas(true);
+					cuenta_seleccionada=var_scanner.nextInt();
+					//FALTAN COMPROBACIONES DE LA CUENTA Y ESO
+					//Le pasamos el cliente y la posición de la cuenta seleccionada
+					//ACORDARNOS QUE PARA OPERAR POSICION-1
+					menu_cliente_cuentas(cliente_actual,cuenta_seleccionada);
 					break;
 				}
 				case '3':
@@ -135,21 +133,21 @@ public class Banco {
 				case 'A':{
 					//CREAR CUENTA
 					//MIRA QUE NO TENGA 100 CUENTAS
-					//BUSCA EL PRIMER HUECO CON RECORRIDO Y MIRANDO SI ESTÁ LIBRE PARA QUE NO HAGA PUNTERO A NULL (cast)	
+					//BUSCA EL PRIMER HUECO CON RECORRIDO Y MIRANDO SI ESTÁ LIBRE PARA QUE NO HAGA PUNTERO A NULL (cast)
+					//PASARLE LA PRIMERA POSICION LIBRE cliente_actual.abrirCuenta(POSICION);
 					break;
 				}
 				case '0':
 				case 's':
 				case 'S':{
 					opc_menu_cliente='0';
-					//LISTADO DE CUENTAS VERSION CLIENTE
 					break;
 				}
 			}
 		}while(opc_menu_cliente!='0');
 	}
 	
-	public static void menu_cliente_cuentas(String id_cliente, String cuenta_actual){
+	public static void menu_cliente_cuentas(Object cliente_actual, int cuenta_actual){
 		char opc_menu_cliente_cuentas;
 		do{
 			cabecera(false);
@@ -164,18 +162,24 @@ public class Banco {
 				case 'r':
 				case 'R':{
 					//RETIRAR DINERO DE LA CUENTA
+					//Comprobaciones para niños y con el objeto y la cuenta
+					//Comparar cliente y cuentas y actualizar saldo de la cuenta
 					break;
 				}
 				case '2':
 				case 'i':
 				case 'I':{
 					//INGRESAS DINERO EN LA CUENTA
+					//Comprobaciones para niños y con el objeto y la cuenta
+					//Comparar cliente y cuentas y actualizar saldo de la cuenta
 					break;
 				}
 				case '3':
 				case 'm':
 				case 'M':{
-					//CREAR UNA CUENTA NUEVA	
+					//MOSTRAR SALDO DE LA CUENTA
+					//Actualizar objeto de cliente y cuenta y luego listar
+					//Por si se ha hecho algún cambio en el saldo de la cuenta desde que se ha logueado el cliente
 					break;
 				}
 				case '0':
@@ -204,6 +208,7 @@ public class Banco {
 				case 'l':
 				case 'L':{
 					//LISTAR TODOS LOS CLIENTES DEL BANCO
+					listarClientes();
 					break;
 				}
 				case '2':
@@ -228,8 +233,9 @@ public class Banco {
 					//SELECCIONAR CLIENTE
 					//PASAR EL ID_CLIENTE CON LOS MÉTODOS PARA LAS OPERACIONES
 					//LANZAR MENU_PERSONAL_CLIENTE
-					String cliente_seleccionado;
-					cliente_seleccionado="patata"; //CAMBIAR CUANDO ESTÉ IMPLEMENTADO
+					Clientes cliente_seleccionado;
+					//CAMBIAR EL 1 POR EL CLIENTE SELECCIONADO
+					cliente_seleccionado=(Clientes)clientes.elementos[1];
 					menu_personal_cliente(cliente_seleccionado);
 				}
 				case '0':
@@ -240,6 +246,14 @@ public class Banco {
 				}
 			}
 		}while (opc_menu_personal!='0');	//PIRULA TEMPORAL PARA PROBAR FUNCIONAMIENTO PERSONAL/CLIENTE
+	}
+	
+	public static void listarClientes(){
+		clientes.iniciarRecorrido();
+		while(clientes.haySiguiente()){
+			Clientes cliente=(Clientes)clientes.siguiente();
+			System.out.println(cliente.getNombre()+" "+cliente.getApellidos()+" -> "+cliente.getCliente());
+		}
 	}
 	
 	public static void altaCliente(){
@@ -277,7 +291,7 @@ public class Banco {
 		}
 	}
 	
-	public static void menu_personal_cliente(String cliente_actual){
+	public static void menu_personal_cliente(Object cliente_actual){
 		char opc_menu_personal_cliente;
 		do{
 			cabecera(true);
@@ -291,7 +305,8 @@ public class Banco {
 				case '1':
 				case 'l':
 				case 'L':{
-					//LISTADO DE LAS CUENTAS, OPCIÓN DE SALDO SÍ O NO
+					//LISTADO DE LAS CUENTAS
+					((Clientes)cliente_actual).listarCuentas(false);
 					break;
 				}
 				case '2':
@@ -305,6 +320,7 @@ public class Banco {
 				case 'C':{
 					//CERRAR UNA CUENTA DEL CLIENTE
 					//LISTAR, SELECCIONAR Y COMPROBAR
+					((Clientes)cliente_actual).listarCuentas(true);
 					break;
 				}
 				case '0':
@@ -333,7 +349,8 @@ public class Banco {
 	}
 	
 	public static void limpiar_pantalla(){
-		for (int contador=1;contador<num_lineas_pantalla;contador++){
+		//Cambiar el 2 por num_lineas_pantalla
+		for (int contador=1;contador<2;contador++){
 			System.out.println("\n");
 		}
 	}

@@ -25,6 +25,10 @@ abstract class Cuentas{
 	}
 	
 	public String toString(){
- 		return ("Numero de Cuenta Corriente: "+this.numeroCuenta+"\nSaldo: "+this.saldo);
+ 		return ("Numero de Cuenta: "+this.numeroCuenta+"\tSaldo: "+this.saldo);
+ 	}
+	
+	public String toStringMenu(){
+ 		return ("Cuenta: "+this.numeroCuenta);
  	}
 }

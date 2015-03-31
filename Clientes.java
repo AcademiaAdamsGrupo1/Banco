@@ -1,5 +1,5 @@
 import java.util.Random;
-import java.util.StringTokenizer;
+//import java.util.StringTokenizer;
 
 public class Clientes {
 	String nombre;
@@ -33,18 +33,45 @@ public class Clientes {
     	cuentas=new Contenedor(num_cuentas);
 	}
 
-	public void abrirCuenta(int posicion, String numCuentaToken){
-		cuentas.elementos[posicion]=new CuentaCorriente(numCuentaToken);
+	public void abrirCuenta(int posicion){
+		//cuentas.elementos[posicion]=new CuentaCorriente(numCuentaToken);
         String Cuenta=new String();
         Cuenta="ES34.5009.0001.10.2";
         Random rm=new Random();
         long x=rm.nextInt(1000000000);
         Cuenta=Cuenta+x;
-        StringTokenizer iban =new StringTokenizer(Cuenta,".");
+        /*StringTokenizer iban =new StringTokenizer(Cuenta,".");
         for(int i=0;i<5;i++){
         	numCuentaToken=iban.nextToken();
-        }
+        }*/
         cuentas.elementos[posicion]=new CuentaCorriente(Cuenta);
+	}
+	
+	public void listarCuentas(boolean menu){
+		Object cuenta;
+		int contador;
+		contador=1;
+		this.cuentas.iniciarRecorrido();
+		while(this.cuentas.haySiguiente()){
+			cuenta=((Cuentas)this.cuentas.siguiente());
+			//Control del tipo de cuenta
+			//System.out.println(cuenta.getClass().getName());
+			if (menu){
+				System.out.print(contador+".- ");
+				if (cuenta.getClass().getName()=="CuentaCorriente"){
+					System.out.println("Cuenta Corriente-> "+((CuentaCorriente)cuenta).toStringMenu());	
+				}else{
+					System.out.println("Cuenta Ahorro-> "+((CuentaAhorroMaximo)cuenta).toStringMenu());
+				}
+				contador++;
+			}else{
+				if (cuenta.getClass().getName()==("CuentaCorriente")){
+					System.out.println("Cuenta Corriente-> "+((CuentaCorriente)cuenta).toString());
+				}else{
+					System.out.println("Cuenta Ahorro-> "+((CuentaAhorroMaximo)cuenta).toString());
+				}
+			}
+		}
 	}
 	
 	public String getNombre(){
