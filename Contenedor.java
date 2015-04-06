@@ -38,6 +38,13 @@ class Contenedor {
 		}
 		return (recorrido<elementos.length);
   	}
+  	
+  	public int libreSiguiente(){
+		while((recorrido<elementos.length)&&(elementos[recorrido]!=null)){
+			recorrido++;
+		}
+		return (recorrido);
+  	}
 
   	public Object siguiente(){
 		if (recorrido<elementos.length){
@@ -59,6 +66,11 @@ class Contenedor {
   	}
   	public void eliminar() {
   		elementos[recorrido-1]=null;
+  		numElementos--;
+  	}
+  	
+  	public void eliminar(int posicion) {
+  		elementos[posicion]=null;
   		numElementos--;
   	}
 }

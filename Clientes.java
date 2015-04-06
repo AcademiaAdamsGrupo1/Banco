@@ -74,6 +74,21 @@ public class Clientes {
 		}
 	}
 	
+<<<<<<< HEAD
+	public String tipoCuenta(int cuenta_actual){
+		Object cuenta;
+		cuenta=this.cuentas.elementos[cuenta_actual];
+		return(cuenta.getClass().getName());
+	}
+	
+	public Object getCuentaEntera(int cuenta_actual){
+		Object cuenta;
+		cuenta=this.cuentas.elementos[cuenta_actual];
+		return(cuenta);
+	}
+	
+=======
+>>>>>>> origin/master
 	public String getNombre(){
     	return (this.nombre);
 	}
