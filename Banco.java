@@ -194,7 +194,6 @@ public class Banco {
 					//RETIRAR DINERO DE LA CUENTA
 					//ACTUALIZAR VARIABLE AUXILIAR Y REAL
 					double cantidad_retirada;
-					cantidad_retirada=0;
 					System.out.println("Introduzca la cantida a retirar: ");
 					cantidad=var_scanner.nextDouble();
 					if (tipo_cuenta=="CuentaCorriente"){
@@ -223,6 +222,7 @@ public class Banco {
 					//INGRESAS DINERO EN LA CUENTA
 					//ACTUALIZAR VARIABLE AUXILIAR Y REAL
 					System.out.println("Introduzca la cantida a ingresar: ");
+					cantidad=var_scanner.nextDouble();
 					if (tipo_cuenta=="CuentaCorriente"){
 						((CuentaCorriente)cuenta_auxiliar).depositar(cantidad);
 						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
