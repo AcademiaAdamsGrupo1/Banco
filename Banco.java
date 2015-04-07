@@ -24,12 +24,12 @@ public class Banco {
 	}
 	
 	public static void inicializarDatosPrueba(){
-		for (int cliente_actual=0;cliente_actual<num_max_clientes;cliente_actual++){
+		for (int cliente_actual=0;cliente_actual<num_max_clientes-1;cliente_actual++){
 			clientes.elementos[cliente_actual]=new Clientes("Pedro"+cliente_actual,"Picapiedra",cliente_actual+1,cliente_actual,num_max_cuentas);
 			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(0);
 			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(1);
 			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(2);
-			clientes.numElementos=num_max_clientes-1;
+			clientes.numElementos=num_max_clientes-2;
 		}
 	}
 
@@ -165,7 +165,7 @@ public class Banco {
 			posicion_vacia=((Clientes)cliente_actual).cuentas.libreSiguiente();
 			//Con esto creamos la cuenta nueva en la primera posición vacía que tenga
 			((Clientes)cliente_actual).abrirCuenta(posicion_vacia);
-			System.out.println("Se ha creado correctamente la cuenta en la posición "+posicion_vacia);
+			System.out.println("Se ha creado correctamente la cuenta");
 		}else{
 			System.out.println("Ya tiene abiertas el número máximo de cuentas permitidas");
 		}
@@ -175,6 +175,7 @@ public class Banco {
 		char opc_menu_cliente_cuentas;
 		String tipo_cuenta;
 		double cantidad;
+		cantidad=0;
 		tipo_cuenta=((Clientes)cliente_actual).tipoCuenta(cuenta_actual);
 		Object cuenta_auxiliar;
 		cuenta_auxiliar=((Clientes)cliente_actual).getCuentaEntera(cuenta_actual);
@@ -197,7 +198,7 @@ public class Banco {
 					System.out.println("Introduzca la cantida a retirar: ");
 					cantidad=var_scanner.nextDouble();
 					if (tipo_cuenta=="CuentaCorriente"){
-						((CuentaCorriente)cuenta_auxiliar).retirar(cantidad);
+						cantidad_retirada=((CuentaCorriente)cuenta_auxiliar).retirar(cantidad);
 						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
 							if (cliente_actual==clientes.elementos[posicion]){
 								cantidad_retirada=((CuentaCorriente)((Clientes)clientes.elementos[posicion]).cuentas.elementos[cuenta_actual]).retirar(cantidad);
@@ -205,7 +206,7 @@ public class Banco {
 							}
 						}*/
 					}else{
-						((CuentaAhorroMaximo)cuenta_auxiliar).retirar(cantidad);
+						cantidad_retirada=((CuentaAhorroMaximo)cuenta_auxiliar).retirar(cantidad);
 						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
 							if (cliente_actual==clientes.elementos[posicion]){
 								cantidad_retirada=((CuentaAhorroMaximo)((Clientes)clientes.elementos[posicion]).cuentas.elementos[cuenta_actual]).retirar(cantidad);
@@ -222,7 +223,6 @@ public class Banco {
 					//INGRESAS DINERO EN LA CUENTA
 					//ACTUALIZAR VARIABLE AUXILIAR Y REAL
 					System.out.println("Introduzca la cantida a ingresar: ");
-					cantidad=var_scanner.nextInt();
 					if (tipo_cuenta=="CuentaCorriente"){
 						((CuentaCorriente)cuenta_auxiliar).depositar(cantidad);
 						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
