@@ -270,7 +270,7 @@ public class Banco {
 			System.out.println("\t\tSeleccione la opción que desea realizar:");
 			System.out.println("\t\t1.- (L)istado de clientes del banco");
 			System.out.println("\t\t2.- (A)lta de nuevo cliente");
-			System.out.println("\t\t3.- (B)aja de cliente actual");
+			System.out.println("\t\t3.- (B)aja de un cliente");
 			System.out.println("\n\t\t4.- (O)perar con las cuentas de un cliente");
 			System.out.println("\n\n\t\t0.- (V)olver al menú principal");
 			opc_menu_personal=var_scanner.next().charAt(0);
@@ -297,7 +297,8 @@ public class Banco {
 					cliente_actual=new Clientes();
 					String cliente_seleccionado;
 					listarClientes();
-					cliente_seleccionado=var_scanner.nextLine();
+					System.out.println("Introduzca el ID del cliente que desea dar de baja: ");
+					cliente_seleccionado=var_scanner.next();
 					var_scanner.nextLine();
 					//Con esto sacamos el cliente con el que estamos trabajando en vez de su posición
 					for (int contador=0;contador<num_max_clientes;contador++){
@@ -317,7 +318,8 @@ public class Banco {
 					cliente_actual=new Clientes();
 					String cliente_seleccionado;
 					listarClientes();
-					cliente_seleccionado=var_scanner.nextLine();
+					System.out.println("Introduzca el ID del cliente con el que desea operar: ");
+					cliente_seleccionado=var_scanner.next();
 					var_scanner.nextLine();
 					//Con esto sacamos el cliente con el que estamos trabajando en vez de su posición
 					for (int contador=0;contador<num_max_clientes;contador++){
@@ -354,17 +356,18 @@ public class Banco {
 		System.out.println("¿Está seguro de que quiere eliminarlo? (s/n)");
 		opc_borrar=var_scanner.next().charAt(0);
 		if ((opc_borrar=='s')||(opc_borrar=='S')){
-			/*String identificador_cliente;
+			String identificador_cliente;
 			int posicion_cliente;
 			posicion_cliente=0;
 			//Con esto sacamos el cliente con el que estamos trabajando en vez de una variable auxiliar
+			//Lo necesitamos para eliminar el cliente
 			identificador_cliente=((Clientes)cliente_actual).getCliente();
 			for (int contador=0;contador<num_max_clientes;contador++){
 				if (identificador_cliente.equals(((Clientes)clientes.elementos[contador]).getCliente())){
 					posicion_cliente=contador;
 					contador=num_max_clientes;
 				}
-			}*/
+			}
 			//ELIMINAMOS CUENTAS
 			((Clientes)cliente_actual).cuentas.iniciarRecorrido();
 			for (int contador=0;contador<num_max_cuentas;contador++){
@@ -373,7 +376,7 @@ public class Banco {
 			((Clientes)cliente_actual).cuentas.numElementos=0;
 			System.out.println("Se han borrado todas las cuentas del cliente");
 			//ELIMINAR CLIENTE
-			((Contenedor) cliente_actual).eliminar();
+			clientes.eliminar(posicion_cliente);
 			System.out.println("Se ha dado de baja al cliente correctamente");
 		}else{
 			System.out.println("No se ha dado de baja el cliente.");

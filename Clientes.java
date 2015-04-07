@@ -17,7 +17,7 @@ public class Clientes {
     	this.apellidos=apellidos;
     	this.edad=edad;
     	//Generar id_cliente contador incremental pero algo aleatorio y asociar a this.id_cliente
-    	this.id_cliente="cliente";
+    	this.id_cliente="cliente"+edad;
     	//Generar contraseña aleatoria y asociar a this.contrasena
     	this.contrasena="patata";
 	}
