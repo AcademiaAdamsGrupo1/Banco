@@ -148,16 +148,6 @@ public class Banco {
 	public static void crearCuenta(Object cliente_actual){
 		//String identificador_cliente;
 		int posicion_vacia;
-		/*int posicion_cliente;
-		posicion_cliente=0;
-		//Con esto sacamos el cliente con el que estamos trabajando en vez de una variable auxiliar
-		identificador_cliente=((Clientes)cliente_actual).getCliente();
-		for (int contador=0;contador<num_max_clientes;contador++){
-			if (identificador_cliente.equals(((Clientes)clientes.elementos[contador]).getCliente())){
-				posicion_cliente=contador;
-				contador=num_max_clientes;
-			}
-		}*/
 		//Comprobamos que no tenga el máximo número de cuentas, ya abiertas
 		if ((((Clientes)cliente_actual)).cuentas.numElementos<num_max_cuentas){
 			//Con esto sacamos la primera posición vacía para poder abrir una cuenta
@@ -198,20 +188,8 @@ public class Banco {
 					cantidad=var_scanner.nextDouble();
 					if (tipo_cuenta=="CuentaCorriente"){
 						cantidad_retirada=((CuentaCorriente)cuenta_auxiliar).retirar(cantidad);
-						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
-							if (cliente_actual==clientes.elementos[posicion]){
-								cantidad_retirada=((CuentaCorriente)((Clientes)clientes.elementos[posicion]).cuentas.elementos[cuenta_actual]).retirar(cantidad);
-								posicion=num_max_clientes;
-							}
-						}*/
 					}else{
 						cantidad_retirada=((CuentaAhorroMaximo)cuenta_auxiliar).retirar(cantidad);
-						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
-							if (cliente_actual==clientes.elementos[posicion]){
-								cantidad_retirada=((CuentaAhorroMaximo)((Clientes)clientes.elementos[posicion]).cuentas.elementos[cuenta_actual]).retirar(cantidad);
-								posicion=num_max_clientes;
-							}
-						}*/
 					}
 					System.out.println("Se han podido retirar: "+cantidad_retirada);
 					break;
@@ -225,20 +203,8 @@ public class Banco {
 					cantidad=var_scanner.nextDouble();
 					if (tipo_cuenta=="CuentaCorriente"){
 						((CuentaCorriente)cuenta_auxiliar).depositar(cantidad);
-						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
-							if (cliente_actual==clientes.elementos[posicion]){
-								((CuentaCorriente)((Clientes)clientes.elementos[posicion]).cuentas.elementos[cuenta_actual]).depositar(cantidad);
-								posicion=num_max_clientes;
-							}
-						}*/
 					}else{
 						((CuentaAhorroMaximo)cuenta_auxiliar).depositar(cantidad);
-						/*for (int posicion=0;posicion<num_max_clientes;posicion++){
-							if (cliente_actual==clientes.elementos[posicion]){
-								((CuentaAhorroMaximo)((Clientes)clientes.elementos[posicion]).cuentas.elementos[cuenta_actual]).depositar(cantidad);
-								posicion=num_max_clientes;
-							}
-						}*/
 					}
 					break;
 				}
@@ -454,17 +420,6 @@ public class Banco {
 			System.out.println("Seleccione la cuenta por su identificador numérico: ");
 			cuenta_seleccionada=var_scanner.nextInt();
 			cuenta_seleccionada=cuenta_seleccionada-1; //Posición en el array de cuentas del cliente
-			/*String identificador_cliente;
-			int posicion_cliente;
-			posicion_cliente=0;
-			//Con esto sacamos el cliente con el que estamos trabajando en vez de una variable auxiliar
-			identificador_cliente=((Clientes)cliente_actual).getCliente();
-			for (int contador=0;contador<num_max_clientes;contador++){
-				if (identificador_cliente.equals(((Clientes)clientes.elementos[contador]).getCliente())){
-					posicion_cliente=contador;
-					contador=num_max_clientes;
-				}
-			}*/
 			((Clientes)cliente_actual).cuentas.eliminar(cuenta_seleccionada);
 			System.out.println("Se ha eliminado correctamente la cuenta en la posición "+cuenta_seleccionada);
 	}

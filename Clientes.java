@@ -1,5 +1,4 @@
 import java.util.Random;
-//import java.util.StringTokenizer;
 
 public class Clientes {
 	String nombre;
@@ -34,16 +33,11 @@ public class Clientes {
 	}
 
 	public void abrirCuenta(int posicion){
-		//cuentas.elementos[posicion]=new CuentaCorriente(numCuentaToken);
         String Cuenta=new String();
         Cuenta="ES34.5009.0001.10.2";
         Random rm=new Random();
         long x=rm.nextInt(1000000000);
         Cuenta=Cuenta+x;
-        /*StringTokenizer iban =new StringTokenizer(Cuenta,".");
-        for(int i=0;i<5;i++){
-        	numCuentaToken=iban.nextToken();
-        }*/
         cuentas.elementos[posicion]=new CuentaCorriente(Cuenta);
 	}
 	
@@ -55,7 +49,6 @@ public class Clientes {
 		while(this.cuentas.haySiguiente()){
 			cuenta=((Cuentas)this.cuentas.siguiente());
 			//Control del tipo de cuenta
-			//System.out.println(cuenta.getClass().getName());
 			if (menu){
 				System.out.print(contador+".- ");
 				if (cuenta.getClass().getName()=="CuentaCorriente"){
@@ -111,9 +104,4 @@ public class Clientes {
 	public String getCuenta(int posicion){
 		return (this.cuentas.elementos[posicion].toString());
 	}
-	public void cerrarCuenta(){}
-	public void depositar(){}
-	public void retirar(){}
-	public void devolverSaldo(){}
-	public void actualizar(){}
 }

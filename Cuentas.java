@@ -13,9 +13,6 @@ abstract class Cuentas{
 	
 	public abstract double retirar(double cantidad);
 	
-	public void actualizar(){
-	}
-	
 	public double devuelveSaldo(){
 		return (saldo);
 	}
