@@ -57,12 +57,14 @@ public class Banco {
 					login_cliente_pass();
 					pass_cliente=var_scanner.nextLine();
 					for (int i=0;i<num_max_clientes;i++){
-						if ((id_cliente.equals(((Clientes)clientes.elementos[i]).getCliente()))&&(pass_cliente.equals(((Clientes)clientes.elementos[i]).getContrasena()))){
-							System.out.println("Sí"+id_cliente);
-							menu_cliente(clientes.elementos[i]);
-							i=num_max_clientes;
-						}else{
-							System.out.println("NO ->"+i);
+						if (clientes.elementos[i]!=null){
+							if ((id_cliente.equals(((Clientes)clientes.elementos[i]).getCliente()))&&(pass_cliente.equals(((Clientes)clientes.elementos[i]).getContrasena()))){
+								//System.out.println("Sí"+id_cliente);
+								menu_cliente(clientes.elementos[i]);
+								i=num_max_clientes;
+							}else{
+								//System.out.println("NO ->"+i);
+							}
 						}
 					}
 					break;
@@ -275,9 +277,11 @@ public class Banco {
 					var_scanner.nextLine();
 					//Con esto sacamos el cliente con el que estamos trabajando en vez de su posición
 					for (int contador=0;contador<num_max_clientes;contador++){
-						if (cliente_seleccionado.equals(((Clientes)clientes.elementos[contador]).getCliente())){
+						if (clientes.elementos[contador]!=null){
+							if (cliente_seleccionado.equals(((Clientes)clientes.elementos[contador]).getCliente())){
 							cliente_actual=clientes.elementos[contador];
 							contador=num_max_clientes;
+							}
 						}
 					}
 					borrarCliente(cliente_actual);
@@ -296,9 +300,11 @@ public class Banco {
 					var_scanner.nextLine();
 					//Con esto sacamos el cliente con el que estamos trabajando en vez de su posición
 					for (int contador=0;contador<num_max_clientes;contador++){
-						if (cliente_seleccionado.equals(((Clientes)clientes.elementos[contador]).getCliente())){
+						if (clientes.elementos[contador]!=null){
+							if (cliente_seleccionado.equals(((Clientes)clientes.elementos[contador]).getCliente())){
 							cliente_actual=clientes.elementos[contador];
 							contador=num_max_clientes;
+							}
 						}
 					}
 					//OPERACIONES CON LAS CUENTAS DE UN CLIENTE
@@ -336,9 +342,11 @@ public class Banco {
 			//Lo necesitamos para eliminar el cliente
 			identificador_cliente=((Clientes)cliente_actual).getCliente();
 			for (int contador=0;contador<num_max_clientes;contador++){
-				if (identificador_cliente.equals(((Clientes)clientes.elementos[contador]).getCliente())){
+				if (clientes.elementos[contador]!=null){
+					if (identificador_cliente.equals(((Clientes)clientes.elementos[contador]).getCliente())){
 					posicion_cliente=contador;
 					contador=num_max_clientes;
+					}
 				}
 			}
 			//ELIMINAMOS CUENTAS
