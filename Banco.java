@@ -26,9 +26,9 @@ public class Banco {
 	public static void inicializarDatosPrueba(){
 		for (int cliente_actual=0;cliente_actual<num_max_clientes-1;cliente_actual++){
 			clientes.elementos[cliente_actual]=new Clientes("Pedro"+cliente_actual,"Picapiedra",cliente_actual+1,cliente_actual,num_max_cuentas);
-			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(0);
-			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(1);
-			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(2);
+			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(0,1);
+			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(1,1);
+			((Clientes)clientes.elementos[cliente_actual]).abrirCuenta(2,2);
 			clientes.numElementos=num_max_clientes-2;
 		}
 	}
@@ -132,7 +132,13 @@ public class Banco {
 				case 'a':
 				case 'A':{
 					//CREAR CUENTA
-					crearCuenta(cliente_actual); 
+					int tipo_cuenta;
+			        System.out.println("Dispone de los siguientes tipos de cuenta");
+			        System.out.println("1.- Cuenta Corriente");
+			        System.out.println("2.- Cuenta Ahorro Máxima");
+			        System.out.println("Seleccione el tipo de cuenta que desea abrir: ");
+			        tipo_cuenta=var_scanner.nextInt();
+					crearCuenta(cliente_actual,tipo_cuenta); 
 					break;
 				}
 				case '0':
@@ -145,7 +151,7 @@ public class Banco {
 		}while(opc_menu_cliente!='0');
 	}
 	
-	public static void crearCuenta(Object cliente_actual){
+	public static void crearCuenta(Object cliente_actual,int tipo_cuenta){
 		//String identificador_cliente;
 		int posicion_vacia;
 		//Comprobamos que no tenga el máximo número de cuentas, ya abiertas
@@ -154,7 +160,7 @@ public class Banco {
 			(((Clientes)cliente_actual)).cuentas.iniciarRecorrido();
 			posicion_vacia=((Clientes)cliente_actual).cuentas.libreSiguiente();
 			//Con esto creamos la cuenta nueva en la primera posición vacía que tenga
-			((Clientes)cliente_actual).abrirCuenta(posicion_vacia);
+			((Clientes)cliente_actual).abrirCuenta(posicion_vacia,tipo_cuenta);
 			System.out.println("Se ha creado correctamente la cuenta");
 		}else{
 			System.out.println("Ya tiene abiertas el número máximo de cuentas permitidas");
@@ -205,6 +211,7 @@ public class Banco {
 						((CuentaCorriente)cuenta_auxiliar).depositar(cantidad);
 					}else{
 						((CuentaAhorroMaximo)cuenta_auxiliar).depositar(cantidad);
+						((CuentaAhorroMaximo)cuenta_auxiliar).actualizar_saldo();
 					}
 					break;
 				}
@@ -394,7 +401,13 @@ public class Banco {
 				case 'a':
 				case 'A':{
 					//DAR DE ALTA UNA NUEVA CUENTA AL CLIENTE
-					crearCuenta(cliente_actual);
+					int tipo_cuenta;
+			        System.out.println("Dispone de los siguientes tipos de cuenta");
+			        System.out.println("1.- Cuenta Corriente");
+			        System.out.println("2.- Cuenta Ahorro Máxima");
+			        System.out.println("Seleccione el tipo de cuenta que desea abrir: ");
+			        tipo_cuenta=var_scanner.nextInt();
+					crearCuenta(cliente_actual,tipo_cuenta); 
 					break;
 				}
 				case '3':

@@ -32,13 +32,17 @@ public class Clientes {
     	cuentas=new Contenedor(num_cuentas);
 	}
 
-	public void abrirCuenta(int posicion){
-        String Cuenta=new String();
+	public void abrirCuenta(int posicion,int tipo_cuenta){
+		String Cuenta=new String();
         Cuenta="ES34.5009.0001.10.2";
         Random rm=new Random();
         long x=rm.nextInt(1000000000);
         Cuenta=Cuenta+x;
-        cuentas.elementos[posicion]=new CuentaCorriente(Cuenta);
+        if (tipo_cuenta==1){
+        	cuentas.elementos[posicion]=new CuentaCorriente(Cuenta);
+        }else{
+        	cuentas.elementos[posicion]=new CuentaAhorroMaximo(Cuenta);
+        }
 	}
 	
 	public void listarCuentas(boolean menu){
