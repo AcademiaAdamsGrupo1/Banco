@@ -23,30 +23,37 @@ class CuentaAhorroMaximo extends Cuentas{
 	}
 	public void actualizar_saldo(){
 		System.out.println("Saldo al entrar:"+saldo);
-		final String nomFich="cuenta_ahorro_max.txt";
+		String nomFich="cuenta_ahorro_max.txt";
 		Scanner var_scanner2;
+		Scanner var_scanner3;
 		var_scanner2=null;
+		var_scanner3=null;
+		String linea;
+		linea="";
 		try{
 			var_scanner2=new Scanner(new FileReader(nomFich));
+			int limite;
+			int limite_anterior;
+			double interes;
+			double interes_nuevo;
+			limite_anterior=0;
+			limite=0;
+			interes_nuevo=0;
+			interes=0;
 			while (var_scanner2.hasNext()){
-				int limite;
-				int limite_anterior;
-				limite_anterior=0;
-				limite=0;
-				double interes;
-				interes=0;
-				while (var_scanner2.hasNextInt()){
-					limite_anterior=limite;
-					limite=var_scanner2.nextInt();
-				}
-				while (var_scanner2.hasNextDouble()){
-					 
-					interes=var_scanner2.nextDouble();
-				}
+				linea=var_scanner2.nextLine();
+				var_scanner3=new Scanner(linea);
+				limite_anterior=limite;
+				limite=var_scanner3.nextInt();
+				System.out.println("Limite= "+limite);
+				interes=interes_nuevo;
+				interes_nuevo=var_scanner3.nextDouble();
+				System.out.println("Interes= "+interes);
 				if ((limite>saldo)&&(limite_anterior<=saldo)){
-					actualizar(saldo*interes);
+					actualizar(saldo*interes/100);
 					break;
 				}
+				var_scanner3.close();
 			}
 		}catch(FileNotFoundException e){
 			System.out.println("Error abriendo el fichero "+nomFich);
